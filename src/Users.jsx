@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const API_BASE = "https://mt-task.onrender.com";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -6,9 +8,11 @@ export default function Users() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    const response = await fetch("https://mt-task.onrender.com/api/bookings?days=30");
-    const data = await response.json();
-    setUsers(data.data);
+
+    const response = await fetch(`${API_BASE}/api/bookings?days=30`);
+    const json = await response.json();
+
+    setUsers(json.data);
     setLoading(false);
   };
 
@@ -16,42 +20,37 @@ export default function Users() {
     fetchUsers();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="text-center font-semibold py-10">
-        Loading...
-      </div>
-    );
-  }
-
   return (
-    <div className="p-6">
-      <h2 className="font-bold text-xl mb-4">Users</h2>
+    <div className="p-4 overflow-x-auto">
+      <h2 className="text-2xl font-bold mb-4">Users List</h2>
 
-      <div className="overflow-x-auto border rounded-lg shadow bg-white">
-        <table className="table-auto w-full text-left text-sm">
-          <thead className="bg-gray-100 font-semibold">
+      {loading ? (
+        <p className="text-lg text-gray-500 font-medium">Loading...</p>
+      ) : (
+        <table className="table-auto w-full border border-gray-300">
+          <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-2 border">User ID</th>
-              <th className="px-4 py-2 border">Name</th>
-              <th className="px-4 py-2 border">Hotel Name</th>
-              <th className="px-4 py-2 border">Last Booked</th>
+              <th className="py-2 px-4 border">User ID</th>
+              <th className="py-2 px-4 border">Name</th>
+              <th className="py-2 px-4 border">Hotel Name</th>
+              <th className="py-2 px-4 border">Last Booked</th>
             </tr>
           </thead>
 
           <tbody>
-            {users.map((u) => (
-              <tr key={u.id} className="hover:bg-gray-50">
-                <td className="border px-4 py-2">{u.id}</td>
-                <td className="border px-4 py-2">{u.guestName}</td>
-                <td className="border px-4 py-2">{u.hotelName}</td>
-                <td className="border px-4 py-2">{u.checkIn}</td>
+            {users?.map((item) => (
+              <tr key={item.id}>
+                <td className="py-2 px-4 border">{item.id}</td>
+                <td className="py-2 px-4 border">{item.guestName}</td>
+                <td className="py-2 px-4 border">{item.hotelName}</td>
+                <td className="py-2 px-4 border">
+                  {item.checkIn?.split("T")[0]}
+                </td>
               </tr>
             ))}
           </tbody>
-
         </table>
-      </div>
+      )}
     </div>
   );
 }
