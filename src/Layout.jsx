@@ -69,7 +69,7 @@ export default function Layout({ children }) {
 
       {/* 🔥 MOBILE NAVBAR */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-white shadow-md p-4 z-40 flex justify-between items-center">
-        <h2 className="text-lg font-bold" style={{ color: PRIMARY_COLOR }}>
+        <h2 className="text-lg font-bold " style={{ color: PRIMARY_COLOR }}>
           MyTravaly
         </h2>
 
@@ -87,7 +87,7 @@ export default function Layout({ children }) {
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3 border-b"
+            className="block py-3 px-0.5 border-b"
             style={location.pathname === "/" ? activeStyle : {}}
           >
             Dashboard
@@ -96,7 +96,7 @@ export default function Layout({ children }) {
           <Link
             to="/users"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3"
+            className="block py-3 px-0.5"
             style={location.pathname === "/users" ? activeStyle : {}}
           >
             Users
@@ -106,13 +106,16 @@ export default function Layout({ children }) {
 
       {/* MAIN CONTENT */}
       <main
-        className={`bg-gray-50 pt-2 px-6 overflow-auto w-full transition-all duration-300
-        ${mobileMenuOpen ? "mt-16" : "mt-0"}
-        ${sidebarOpen ? "md:ml-64" : "md:ml-20"}
-      `}
-      >
-        {children}
-      </main>
+  className={`
+    bg-gray-50 overflow-auto w-full transition-all duration-300
+    ${sidebarOpen ? "md:ml-64" : "md:ml-20"}
+    pt-20 md:pt-2 px-4 md:px-6
+  `}
+>
+  {children}
+</main>
+
+        
     </div>
   );
 }
