@@ -1,194 +1,184 @@
 MyTravaly Dashboard – Documentation
 
-This project is a dynamic hotel booking dashboard that consumes live API data and visualizes analytics using interactive UI elements and charts.
+This project is a dynamic hotel booking analytics dashboard built using React and Tailwind CSS. It consumes live API data and presents analytics with a clean and interactive UI.
 
 Project Overview
 
-The objective of this dashboard is to display real-time booking data, provide analytical insights, and visualize metrics through meaningful charts. The API returns dynamically changing data on each request, which simulates real-world booking changes.
+The objective of this dashboard is to visualize changing booking activity in real-time.
+The backend API returns randomized data on each request, simulating real booking trends.
 
-The dashboard includes:
+The dashboard provides:
 
-Summary statistics
+Summary metrics
 
-Monthly trends
+Monthly trends visualization
 
-Recent bookings
+Live recent booking records
 
-Status distribution
+Status-wise analytics
 
-Interactive filtering
+Filtering and sorting features
 
-Architectural Decisions
-Component Structure
+Architecture and Key Design Decisions
+Application Structure
 
-The application is implemented using a component-based architecture to improve clarity, maintainability, and scalability.
+The application is organized using a clear component-based approach.
+Major component groups include:
 
-Major UI sections include:
+Dashboard visual layout
 
-Dashboard view
+Stat cards representing analytics KPIs
 
-Stat cards for metrics
+Booking card components showing individual booking details
 
-Booking cards for latest booking records
+Tabular layout for a users list
 
-Filtering UI
+Filters and UI controls
 
-Charts for visual analytics
+Chart components for analytics
 
-Each UI section is logically separated to ensure clean management and state updates.
+This separation improves readability, scalability, and maintenance.
 
-State Management
+State Management Approach
 
-React hooks are used for managing internal state:
+React hooks are used to manage UI and data state.
 
-useState → Stores bookings, metrics, trends, filters, and loading state
+useState is used for storing:
 
-useEffect → Performs API calls whenever filters change
+Bookings data
 
-This ensures automatic UI rendering whenever new responses arrive.
+Metrics
+
+Trend analytics
+
+Loading state
+
+Applied filters
+
+useEffect is called whenever filters change.
+This triggers fresh API calls and ensures automatic UI updates.
 
 API Integration Strategy
 
-Three API endpoints are used:
+The dashboard communicates with three API endpoints:
 
-1. Bookings
+1. Bookings Endpoint
 
 GET /api/bookings?days=7&status=confirmed&order=asc
-Used for listing recent bookings and applying filters.
 
-Displayed fields include:
+Used to list recent bookings and apply filters.
 
-guestName
+Data used includes:
 
-hotelName
+Guest Name
 
-amount
+Hotel Name
 
-status
+Room Type
 
-paymentStatus
+Amount
 
-roomType
+Payment Status
 
-checkIn / checkOut dates
+Check-in and Check-out dates
 
-2. Metrics
+2. Metrics Endpoint
 
 GET /api/metrics?days=30
-Used to derive summary insights such as:
 
-Total bookings
+Used to populate summary cards with values such as:
 
-Revenue
+Total Bookings
 
-Conversion rate
+Total Revenue
 
-Occupancy rate
+Average Booking Value
 
-Average booking value
+Occupancy Rate
 
-These values populate the stat cards.
+Conversion Rate
 
-3. Trends
+3. Trends Endpoint
 
 GET /api/trends?months=6
-Used to display time-series analytics such as:
 
-Revenue changes by month
+Used for month-based visual analytics:
 
-Booking count changes
+Revenue trend
 
-Rendered using line and bar charts.
+Booking count trend
 
-Filtering and Data Refresh
+Displayed using line/pie charts.
 
-The dashboard includes filters for:
+Filtering and Refresh Logic
 
-Days range (7, 14, 30)
+The dashboard supports multiple filters:
 
-Status type (confirmed, pending, cancelled, all)
+Time period (7, 14, 30 days)
 
-Sorting order (ascending, descending)
+Booking status (confirmed, pending, cancelled, all)
 
-When a filter value changes:
+Sorting order (ascending or descending)
 
-New API request is made
+When a filter changes:
 
-State gets updated
+API request is re-triggered
 
-UI re-renders with updated results
+State updates
 
-A manual "Refresh" button is also provided to fetch new randomized data.
+UI auto-refreshes
+
+A manual refresh button is also available to fetch latest values.
 
 Responsive Layout
 
-Tailwind CSS utility classes are used extensively to ensure responsiveness:
+Tailwind CSS utilities provide responsiveness without custom CSS.
 
-Examples include:
+The UI adapts smoothly for:
 
-Responsive grid columns
+Large displays
 
-Auto scaling spacing
-
-Mobile-first layout
-
-The layout adapts for:
-
-Desktop screens
+Laptop screens
 
 Tablets
 
-Mobile displays
+Mobile screens
 
-Loading Indicators and Empty State Handling
+Layout adjustments include:
 
-When data is being fetched:
+Automatic column resizing
 
-Skeleton or placeholder layouts appear
+Collapsible sidebar
 
-Charts and booking lists show fallback text
+Responsive charts
 
-If no bookings exist after filtering:
+Loading and Empty State Handling
 
-A message such as "No bookings found" is shown
+When API requests are in progress:
 
-This prevents UI glitches and improves usability.
+A loading message is displayed
 
-Visual Design and Branding
+When booking results are empty:
 
-A consistent theme is used throughout:
+Proper placeholder message is shown
 
-Primary color: Orange (#ff6f61)
-Secondary color: Black (#111111)
+This ensures better usability and avoids UI breaking.
 
-Used in:
+Visual Design and Branding Strategy
 
-Headers
+Consistent theme applied throughout the dashboard:
 
-Buttons
+Primary theme color: Orange (#ff6f61)
+Secondary text color: Black (#111111)
 
-Status labels
+Used for:
 
-Highlights
+Top navigation
 
-Charts
+Action buttons
 
-This creates a uniform brand identity matching the company.
+Highlights inside cards
 
-Summary
+Chart appearance
 
-The dashboard fulfills all core requirements:
-
-API-based dynamic content rendering
-
-Real-time analytics visualization
-
-Filters affecting UI output
-
-Loading and empty states handled
-
-Mobile-friendly responsive layout
-
-Clean branding and organized UI
-
-The architecture is scalable, easy to extend, and practical for real-world analytics dashboards.
+This produces a uniform brand identity.

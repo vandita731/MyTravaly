@@ -20,7 +20,7 @@ export default function Users() {
       id: item.id,
       name: item.guestName,
       email: `${item.guestName.split(" ").join("").toLowerCase()}@gmail.com`,
-      city: item.hotelName.split(" ")[1] ?? "India",
+      HotelName: item.hotelName?? "India",
       lastBooking: item.bookingDate?.slice(0, 10),
     }));
 
@@ -40,7 +40,7 @@ export default function Users() {
               <th className="p-3 border">User ID</th>
               <th className="p-3 border">Name</th>
               <th className="p-3 border">Email</th>
-              <th className="p-3 border">City</th>
+              <th className="p-3 border">Hotel Name</th>
               <th className="p-3 border">Last Booking</th>
             </tr>
           </thead>
@@ -51,7 +51,7 @@ export default function Users() {
                 <td className="p-3 border">{u.id}</td>
                 <td className="p-3 border">{u.name}</td>
                 <td className="p-3 border">{u.email}</td>
-                <td className="p-3 border">{u.city}</td>
+                <td className="p-3 border">{u.HotelName}</td>
                 <td className="p-3 border">{u.lastBooking}</td>
               </tr>
             ))}
