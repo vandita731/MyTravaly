@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* REMOVE ALL DEFAULT SPACING */
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* FIX PAGE WRAPPER EXACTLY FROM TOP */
+#root {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}

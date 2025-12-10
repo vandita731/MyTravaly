@@ -13,101 +13,104 @@ export default function Layout({ children }) {
     background: PRIMARY_COLOR,
     color: "white",
     fontWeight: "600",
-    borderRadius: "10px",
+    boxShadow: "0 0 6px rgba(0,0,0,0.25)",
   };
 
   return (
     <div className="flex min-h-screen">
-      
-      {/* DESKTOP SIDEBAR */}
+
+      {/* 🔥 Desktop Sidebar */}
       <aside
-        className={`hidden md:flex flex-col bg-white border-r shadow-sm transition-all duration-300 
-        ${sidebarOpen ? "w-64" : "w-20"}`}
+        className={`hidden md:flex flex-col justify-between ${
+          sidebarOpen ? "w-64" : "w-20"
+        } bg-white h-screen fixed top-0 left-0 border-r shadow-sm transition-all duration-300 p-4 z-40`}
       >
-        {/* LOGO + TOGGLE */}
-        <div className="flex justify-between items-center p-4 border-b">
-          {sidebarOpen && (
-            <h2 className="text-xl font-bold" style={{ color: PRIMARY_COLOR }}>
-              MyTravaly
-            </h2>
-          )}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-md hover:bg-gray-200"
-          >
-            {sidebarOpen ? <X /> : <Menu />}
-          </button>
+        <div>
+          {/* HEADER + TOGGLE */}
+          <div className="flex justify-between items-center mb-6">
+            {sidebarOpen && (
+              <h2 className="text-xl font-bold text-gray-800">MyTravaly</h2>
+            )}
+
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 hover:bg-gray-100 rounded-md"
+            >
+              {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+
+          {/* NAV LINKS */}
+          <nav className="space-y-2 font-medium mt-2">
+            <Link
+              to="/"
+              className="flex gap-3 items-center px-4 py-3 rounded-md"
+              style={location.pathname === "/" ? activeStyle : {}}
+            >
+              <Home size={20} />
+              {sidebarOpen && "Dashboard"}
+            </Link>
+
+            <Link
+              to="/users"
+              className="flex gap-3 items-center px-4 py-3 rounded-md"
+              style={location.pathname === "/users" ? activeStyle : {}}
+            >
+              <Users size={20} />
+              {sidebarOpen && "Users"}
+            </Link>
+          </nav>
         </div>
 
-        {/* SIDEBAR LINKS */}
-        <nav className="flex flex-col gap-2 p-3 font-medium mt-2">
-
-          {/* DASHBOARD */}
-          <Link
-            to="/"
-            style={location.pathname === "/" ? activeStyle : {}}
-            className={`flex items-center gap-3 py-3 rounded-md transition 
-            ${sidebarOpen ? "px-4 justify-start" : "px-0 justify-center"}`}
-          >
-            <Home size={22} />
-            {sidebarOpen && "Dashboard"}
-          </Link>
-
-          {/* USERS */}
-          <Link
-            to="/users"
-            style={location.pathname === "/users" ? activeStyle : {}}
-            className={`flex items-center gap-3 py-3 rounded-md transition 
-            ${sidebarOpen ? "px-4 justify-start" : "px-0 justify-center"}`}
-          >
-            <Users size={22} />
-            {sidebarOpen && "Users"}
-          </Link>
-
-        </nav>
+        <div className="text-xs text-gray-500 text-center pb-2">
+          {sidebarOpen && "© MyTravaly"}
+        </div>
       </aside>
 
-
-
-      {/* MOBILE NAV */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white shadow-sm py-3 px-4 flex justify-between items-center">
-        <h2 className="text-xl font-bold" style={{ color: PRIMARY_COLOR }}>
+      {/* 🔥 MOBILE NAVBAR */}
+      <div className="md:hidden fixed top-0 left-0 w-full bg-white shadow-md p-4 z-40 flex justify-between items-center">
+        <h2 className="text-lg font-bold" style={{ color: PRIMARY_COLOR }}>
           MyTravaly
         </h2>
 
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-md hover:bg-gray-100"
+          className="p-2 border rounded-md"
         >
-          {mobileMenuOpen ? <X /> : <Menu />}
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* MOBILE MENU DROPDOWN */}
+      {/* MOBILE DROPDOWN */}
       {mobileMenuOpen && (
-        <nav className="md:hidden absolute top-14 left-0 bg-white w-full p-4 shadow-lg z-50 flex flex-col gap-3">
+        <div className="md:hidden fixed top-16 left-0 bg-white w-full shadow-lg p-5 z-40">
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
+            className="block py-3 border-b"
             style={location.pathname === "/" ? activeStyle : {}}
-            className="flex items-center gap-3 py-3 px-3 rounded-md"
           >
-            <Home size={22} /> Dashboard
+            Dashboard
           </Link>
 
           <Link
             to="/users"
             onClick={() => setMobileMenuOpen(false)}
+            className="block py-3"
             style={location.pathname === "/users" ? activeStyle : {}}
-            className="flex items-center gap-3 py-3 px-3 rounded-md"
           >
-            <Users size={22} /> Users
+            Users
           </Link>
-        </nav>
+        </div>
       )}
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 bg-gray-50 p-6 mt-14 md:mt-0 overflow-auto">
+      <main
+        className={`bg-gray-50 pt-2 px-6 overflow-auto w-full transition-all duration-300
+        ${mobileMenuOpen ? "mt-16" : "mt-0"}
+        ${sidebarOpen ? "md:ml-64" : "md:ml-20"}
+      `}
+      >
         {children}
       </main>
     </div>
